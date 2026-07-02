@@ -107,6 +107,37 @@ python 5_langgraph.py
 
 ---
 
+## Architecture
+
+```
+┌───────────────────────────────────────────────────────────────────┐
+│                        LangSmith Observability                    │
+│              (Tracing, Monitoring, Debugging)                     │
+└───────────────────────────────────────────────────────────────────┘
+                                  │
+     ┌────────────────────────────┼────────────────────────────┐
+     │                            │                            │
+     ▼                            ▼                            ▼
+┌─────────────┐          ┌────────────────┐          ┌────────────────┐
+│  LCEL Chain │          │   ReAct Agent  │          │   LangGraph    │
+│ (1, 2)      │          │   (4)          │          │   (5)          │
+│             │          │                │          │                │
+│ Prompt →    │          │ Thought →      │          │ State → Node → │
+│ LLM →       │          │ Action →       │          │ Node → State   │
+│ Output      │          │ Observation    │          │                │
+└─────────────┘          └────────────────┘          └────────────────┘
+       │                        │
+       ▼                        ▼
+┌─────────────────────────────────────┐
+│         RAG Pipeline (3)            │
+│                                     │
+│ PDF → Chunk → Embed → VectorStore   │
+│        ← Retrieve → Generate        │
+└─────────────────────────────────────┘
+```
+
+---
+
 ## License
 
 MIT License. Free to use and modify for personal or commercial projects.
