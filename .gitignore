@@ -42,3 +42,4 @@ share/python-wheels/
 # OS metadata
 .DS_Store
 Thumbs.db
+islr.pdf
